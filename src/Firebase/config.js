@@ -3,10 +3,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
 import {
     getAuth,
-    getRedirectResult,
     GoogleAuthProvider,
     signInWithPopup,
-    signInWithRedirect,
     GithubAuthProvider,
 } from 'firebase/auth'
 
@@ -31,10 +29,7 @@ export {
     db,
     auth,
     provider,
-    getRedirectResult,
-    GoogleAuthProvider,
     signInWithPopup,
-    signInWithRedirect,
     Gitprovider,
     GithubAuthProvider
 }
