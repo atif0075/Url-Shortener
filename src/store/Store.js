@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { auth, provider, signInWithPopup, Gitprovider, db } from '../firebase/config'
+import { auth, provider, signInWithPopup, Gitprovider, db } from '../Firebase/config'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-import { doc,getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 export const useStore = defineStore('store', {
     state: () => {
         return {
