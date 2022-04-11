@@ -13,8 +13,8 @@
       </li>
 
       <li>
-        <router-link class="px-3 py-2 rounded-lg" to="/your-links">
-          Your Links
+        <router-link class="px-3 py-2 rounded-lg" to="/all-links">
+          All Links
         </router-link>
       </li>
 

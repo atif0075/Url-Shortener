@@ -10,7 +10,21 @@ export const useStore = defineStore('store', {
             Name: '',
             img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.palmcityyachts.com%2Fwp%2Fwp-content%2Fuploads%2Fpalmcityyachts.com%2F2015%2F09%2Fdefault-profile-480x480.png&f=1&nofb=1',
             uid: '',
-            show: false
+            show: false,
+            linkList: [
+                "https://animxyz.com/docs/1",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
+                "https://animxyz.com/docs/1",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
+                "https://animxyz.com/docs/1",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
+                "https://animxyz.com/docs/1",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
+            ]
         }
     },
     actions: {

@@ -7,9 +7,9 @@ const routes = [
         component: () => import('../views/Home.vue'),
     },
     {
-        path: '/your-links',
-        meta: { title: 'Your Links' },
-        component: () => import('../views/YourLinks.vue'),
+        path: '/all-links',
+        meta: { title: 'All Links' },
+        component: () => import('../views/AllLinks.vue'),
     },
     {
         path: '/:catchAll(.*)*',

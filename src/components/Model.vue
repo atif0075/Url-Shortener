@@ -3,8 +3,18 @@
     <div xyz="delay-2 fade small rotate-right" class="m-10">
       <div v-if="showModal">
         <main class="model">
-          <div class="inner-model">
-            <h1 class="font-bold block text-2xl mb-3 text-center">Signin</h1>
+          <div class="inner-model relative">
+            <h1 class="font-bold block text-2xl mb-3 text-center">
+              {{ btnText }}
+            </h1>
+            <button
+              v-if="show"
+              xyz="inherit left"
+              @click="cancel"
+              class="btn text-up bg-red-400 top-0 font-bold absolute right-0"
+            >
+              X
+            </button>
             <XyzTransitionGroup
               appear-visible
               mode="out-in"
@@ -39,19 +49,14 @@
                 placeholder="Password"
               />
             </XyzTransitionGroup>
+            <div v-if="loading" class="flex justify-center">
+              <img class="w-10" src="../assets/Infinity.svg" alt="" />
+            </div>
             <XyzTransitionGroup
               appear-visible
               xyz="fade stagger"
               class="w-full text-right justify-end space-x-5 flex mt-5"
             >
-              <button
-                v-if="show"
-                xyz="inherit left"
-                @click="cancel"
-                class="btn text-up bg-red-400"
-              >
-                Cancel
-              </button>
               <button
                 v-if="show"
                 xyz="inherit up"
@@ -114,7 +119,7 @@
       </div>
     </div>
     <main class="h-96 px-12 flex justify-center items-center">
-      <button @click="open" class="btn-out">Signin to Save Links</button>
+      <button @click="open" class="btn-out">Signin to keep record</button>
     </main>
     <main class="absolute bottom-2 z-50 sm:right-10 right-2">
       <Message :value="red" text="Please Validate All Inputs" />
@@ -127,6 +132,7 @@ import { onMounted, ref } from "vue";
 import { db } from "../Firebase/config";
 import Message from "./Message.vue";
 import { useStore } from "../store/Store";
+let loading = ref(false);
 let showModal = ref(false);
 let name = ref();
 let email = ref();
@@ -172,6 +178,7 @@ const signin = () => {
 
 const SingInUser = async () => {
   try {
+    loading.value = true;
     await store.signin({
       email: email.value,
       password: password.value,
@@ -184,18 +191,21 @@ const SingInUser = async () => {
     } else {
       console.log("No such document!");
     }
+    loading.value = false;
   } catch (err) {
     console.log(err);
   }
 };
 const SingUpUser = async () => {
   try {
+    loading.value = true;
     await store.signup({ email: email.value, password: password.value });
     const data = {
       Name: name.value,
       Email: email.value,
     };
     await setDoc(doc(db, "Users", `${store.user?.uid}`), data);
+    loading.value = false;
   } catch (error) {
     console.log(error);
   }

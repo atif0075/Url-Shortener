@@ -11,4 +11,14 @@ import Hero from "./components/Hero.vue";
   </div>
 </template>
 
-<style></style>
+<style lang="postcss">
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-thumb {
+  @apply bg-amber-500;
+}
+*::-webkit-scrollbar-track {
+  @apply bg-back;
+}
+</style>
