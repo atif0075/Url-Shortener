@@ -114,23 +114,18 @@
       </div>
     </div>
     <main class="h-96 px-12 flex justify-center items-center">
-      <button
-        @click="open"
-        class="btn-out"
-      >
-        Signin to Save Links
-      </button>
+      <button @click="open" class="btn-out">Signin to Save Links</button>
     </main>
     <main class="absolute bottom-2 z-50 sm:right-10 right-2">
       <Message :value="red" text="Please Validate All Inputs" />
     </main>
   </main>
 </template>
-<script  setup>
+<script lang="ts" setup>
 import { doc, getDoc, setDoc } from "@firebase/firestore";
 import { onMounted, ref } from "vue";
+import { db } from "../Firebase/config";
 import Message from "./Message.vue";
-import { db } from "../firebase/config";
 import { useStore } from "../store/Store";
 let showModal = ref(false);
 let name = ref();
