@@ -1,6 +1,8 @@
 <template>
-  <Model v-if="(store.user = null)" />
-  <Grid />
+  <Model v-if="store.user == null" />
+  <main v-else class="py-4">
+    <Grid />
+  </main>
 </template>
 
 <script setup lang="ts">

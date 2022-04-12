@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-2 sm:right-10 right-2">
+  <div class="bottom-2 sm:right-10 right-2 ">
     <XyzTransition
       xyz="fade up-100% duration-5"
       key="1"

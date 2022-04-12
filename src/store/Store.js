@@ -1,14 +1,15 @@
 import { defineStore } from 'pinia'
 import { auth, provider, signInWithPopup, Gitprovider, db } from '../Firebase/config'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 export const useStore = defineStore('store', {
     state: () => {
         return {
             user: null,
             isReady: false,
-            Name: '',
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.palmcityyachts.com%2Fwp%2Fwp-content%2Fuploads%2Fpalmcityyachts.com%2F2015%2F09%2Fdefault-profile-480x480.png&f=1&nofb=1',
+            Name: 'M Atif',
+            Email: 'chatif476@gmail.com',
+            img: 'https://i.ibb.co/wpG1QZ6/user.png',
             uid: '',
             show: false,
             linkList: [
@@ -36,9 +37,10 @@ export const useStore = defineStore('store', {
         }
     },
     actions: {
-        async signup({ email, password }) {
+        async signup({ name, email, password }) {
             console.log(password);
             const res = await createUserWithEmailAndPassword(auth, email, password)
+            this.Name = name
             if (res) {
                 this.setUser(res.user)
             } else {
@@ -49,6 +51,7 @@ export const useStore = defineStore('store', {
             const res = await signInWithEmailAndPassword(auth, email, password)
             if (res) {
                 this.setUser(res.user)
+
             } else {
                 throw new Error('Could not complete request')
             }
@@ -58,19 +61,19 @@ export const useStore = defineStore('store', {
             const res = await signInWithPopup(auth, provider)
             let user = res.user
             this.setUser(res.user)
-
             if (user) {
-
                 this.Name = user.displayName
-
-
+                this.Email = user.email
                 this.uid = user.uid
                 setTimeout(() => {
                     this.img = user.photoURL
-                }, 2000);
+                    setDoc(doc(db, "Users", `${this.uid}`), {
+                        Name: this.Name,
+                        Email: this.Email,
+                        img: this.img,
+                    });
+                }, 1000);
                 this.setUser(user)
-
-
             } else {
                 console.log('Could not complete request')
             }
@@ -80,14 +83,19 @@ export const useStore = defineStore('store', {
             let user = res.user
             this.setUser(res.user)
             if (user) {
+                console.log(user);
                 this.Name = user.displayName
-
+                this.Email = user.email
+                this.uid = user.uid
                 setTimeout(() => {
                     this.img = user.photoURL
-                }, 2000);
+                    setDoc(doc(db, "Users", `${this.uid}`), {
+                        Name: this.Name,
+                        Email: this.Email,
+                        img: this.img,
+                    });
+                }, 1000);
                 this.setUser(user)
-                console.log(this.img);
-
             } else {
                 console.log('Could not complete request')
             }
@@ -114,6 +122,7 @@ const unsub = onAuthStateChanged(auth, async (user) => {
     if (useStore().user != null) {
         await getData()
 
+
     }
 })
 unsub()
@@ -122,10 +131,17 @@ const getData = async () => {
     const docRef = doc(db, "Users", useStore().user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        useStore().show = true
+        useStore().Name = docSnap.data().Name
+        useStore().Email = docSnap.data().Email
+        useStore().img = docSnap.data().img
+        console.log(useStore().Name);
+        console.log(useStore().Email);
+        console.log(useStore().img);
+        setTimeout(() => {
+
+            useStore().show = true
+        }, 2000);
     } else {
         console.log("No such document!");
     }
 }
-

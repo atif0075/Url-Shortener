@@ -199,7 +199,11 @@ const SingInUser = async () => {
 const SingUpUser = async () => {
   try {
     loading.value = true;
-    await store.signup({ email: email.value, password: password.value });
+    await store.signup({
+      name: name.value,
+      email: email.value,
+      password: password.value,
+    });
     const data = {
       Name: name.value,
       Email: email.value,
