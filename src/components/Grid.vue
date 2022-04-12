@@ -52,8 +52,20 @@
       >
         <p xyz="out-flip-down">{{ item }}</p>
         <div class="flex w-14 justify-between">
-          <a class="cursor-pointer" target="_blank" :href="item">🔗</a>
-          <p class="cursor-pointer" @click="deleteTask(index)">🗑️</p>
+          <a class="cursor-pointer" target="_blank" :href="item">
+            <img
+              class="w-6 h-6 inline-block"
+              src="../assets/link.svg"
+              alt="Link"
+            />
+          </a>
+          <p class="cursor-pointer" @click="deleteTask(index)">
+            <img
+              class="w-6 h-6 inline-block"
+              src="../assets/bin.svg"
+              alt="Delete"
+            />
+          </p>
         </div>
       </main>
     </XyzTransitionGroup>
