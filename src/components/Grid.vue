@@ -1,17 +1,30 @@
 <template>
-  <div
+  <XyzTransitionGroup
+    xyz="fade stagger"
     class="flex justify-between text-up items-center px-4 sm:px-9 xl:px-44 py-3"
   >
-    <h1 class="font-extrabold text-up text-2xl">All Your Links</h1>
-    <div class="w-28 flex justify-between items-center">
+    <h1
+      v-if="store.show"
+      xyz="inherit left"
+      class="font-extrabold text-up text-2xl"
+    >
+      All Your Links
+    </h1>
+    <div
+      v-if="store.show"
+      xyz="inherit right"
+      class="w-28 flex justify-between items-center"
+    >
       <p>M Atif</p>
-      <img class="w-8" src="../assets/user.png" alt="" />
+      <div>
+        <img class="w-8" src="../assets/user.png" alt="" />
+      </div>
     </div>
-  </div>
+  </XyzTransitionGroup>
   <XyzTransitionGroup
     appear
     mode="in-out"
-    xyz="fade duration-5 appear-front-3 small-3 appear-small-0 stagger-2 out-stagger-0"
+    xyz="fade  appear-front small appear-small stagger "
     class="grid grid-cols-1 px-4 lg:grid-cols-3 gap-4 sm:grid-cols-2 sm:px-9 xl:px-44"
   >
     <main
@@ -29,11 +42,14 @@
   </XyzTransitionGroup>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "../store/Store";
 const store = useStore();
 const deleteTask = (index) => {
   store.linkList.splice(index, 1);
 };
+onMounted(() => {
+  store.show = true;
+});
 </script>
 <style scoped></style>

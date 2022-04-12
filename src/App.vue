@@ -6,7 +6,6 @@ import Hero from "./components/Hero.vue";
 <template>
   <div class="bg-back min-h-screen">
     <Navbar />
-
     <router-view />
   </div>
 </template>

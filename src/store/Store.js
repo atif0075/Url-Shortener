@@ -24,6 +24,14 @@ export const useStore = defineStore('store', {
                 "https://animxyz.com/docs/1",
                 "https://animxyz.com/docs/2",
                 "https://animxyz.com/docs/3",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
+                "https://animxyz.com/docs/1",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
+                "https://animxyz.com/docs/1",
+                "https://animxyz.com/docs/2",
+                "https://animxyz.com/docs/3",
             ]
         }
     },
