@@ -7,6 +7,8 @@ let link = ref();
 let red = ref(false);
 let copyVal = ref(false);
 let wrongURL = ref(false);
+let URL = ref();
+let isUrl = ref(false);
 const fetchData = async () => {
   if (link.value != null && link.value.match(/^(http|https):\/\//)) {
     try {
@@ -15,12 +17,11 @@ const fetchData = async () => {
         `https://api.shrtco.de/v2/shorten?url=${link.value}`
       );
       let data = await res.json();
-      console.log(data);
-      link.value = data.result.full_short_link;
+      URL.value = data.result.full_short_link;
+      isUrl.value = true;
       loading.value = false;
     } catch (error) {
       loading.value = false;
-      console.log(error);
       wrongURL.value = true;
       setTimeout(() => {
         wrongURL.value = false;
@@ -38,13 +39,16 @@ const fetchData = async () => {
 const copy = () => {
   if (link.value != null) {
     navigator.clipboard.writeText(link.value);
-    // enable copy for mobile devices (iOS)
-
     copyVal.value = true;
     setTimeout(() => {
       copyVal.value = false;
     }, 2000);
   }
+};
+
+const hide = () => {
+  isUrl.value = !isUrl.value;
+  link.value = "";
 };
 </script>
 
@@ -76,6 +80,31 @@ const copy = () => {
         <div class="flex justify-center gap-4 mt-4">
           <button @click="fetchData" class="btn-lg">Get Link</button>
           <button class="btn-out" @click="copy">Copy</button>
+        </div>
+        <div class="mt-5">
+          <XyzTransition
+            v-if="isUrl"
+            xyz="fade stagger"
+            class="bg-black inline-block px-6 py-3 rounded font-semibold mb-2 text-up"
+          >
+            <a xyz="inherit left" @click="hide" :href="URL" target="_blank"
+              >{{ URL }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="ml-1.5 w-4 h-4 inline-block"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </XyzTransition>
         </div>
       </div>
     </div>

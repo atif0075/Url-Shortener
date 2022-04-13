@@ -70,7 +70,6 @@
       </main>
     </XyzTransitionGroup>
   </section>
-  <button @click="info">Click me</button>
 </template>
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
@@ -96,11 +95,5 @@ onMounted(() => {
     mail.value = store.Email;
   }, 1000);
 });
-
-const info = () => {
-  console.log(image.value);
-  console.log(name.value);
-  console.log(mail.value);
-};
 </script>
 <style scoped></style>
