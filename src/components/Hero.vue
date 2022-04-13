@@ -38,7 +38,7 @@ const fetchData = async () => {
 
 const copy = () => {
   if (link.value != null) {
-    navigator.clipboard.writeText(link.value);
+    navigator.clipboard.writeText(URL.value);
     copyVal.value = true;
     setTimeout(() => {
       copyVal.value = false;
